@@ -10,3 +10,98 @@
     import 'relative/path/to/stylesheet.scss';
 
 */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,100&display=swap');
+/* 
+
+    You can write your own styles here...
+    
+    
+    ...Or you can use the import command to include 
+    other sylesheets into your bunde as well, e.j:
+    
+    import 'relative/path/to/stylesheet.scss';
+
+*/
+
+body {
+    background-color: black;
+    margin-top: 100px;
+    font-size: 17px;
+    letter-spacing: 0.4px;
+    word-spacing: 0.8px;
+    color:#e7c5c7;
+    font-weight: 100;
+    text-decoration: none;
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+}
+
+.container {
+    background-image:  'http://api.thumbr.it/whitenoise-600x600.png?';
+    background: #F3F3F3;
+    opacity:15;
+    width: 500px;
+    height: 500px;
+    z-index: 1;
+}
+
+
+h1 {
+    font-weight: 100;
+    font-style: italic;
+    font-size: 5em;
+    color: #ebd8d9;
+    text-align: center;
+    margin-bottom: 5%;
+}
+
+ul {
+    padding: 0;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+ul li {
+    font-size: 1.5rem;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid lightgray;
+    list-style: none;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+input {
+    width:100%;
+    border: none;
+    color: lightslategray;
+    font-weight: 200;
+}
+
+#task-counter {
+    width: 41%;
+    margin-right: auto;
+    border: none;
+    font-size: 0.7rem;
+    color: rgb(153, 150, 150);
+}
+
+#notebook {
+    width: 400px;
+    z-index: 1000;
+    background-color: #f9f9f9;
+    height: calc(100% - 200px);
+    overflow: scroll;
+}
+
+.sombra {
+    box-shadow: 5px 5px 15px gray;
+}
+

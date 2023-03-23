@@ -1,15 +1,41 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRightLong, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
-//High Order Functions
-//include images into your bundle
+// include images into your bundle
 import rigoImage from "../../img/rigo-baby.jpg";
 
-//create your first component
 const Home = () => {
   const [inputValue, setInputValue] = useState("");
   const [todos, setTodos] = useState([]);
+
+  let url = "https://assets.breatheco.de/apis/fake/todos/user/ameleror";
+
+  let options = {
+    method: "get",
+    body: JSON.stringify(todos),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
+
+  fetch(url, options)
+    .then(respuesta => {
+      if (respuesta.status >= 200 && respuesta.status < 300) {
+        console.log("El request se hizo correctamente");
+        return respuesta.json();
+      } else {
+        console.log(`Hubo un error ${respuesta.status} en el request`);
+      }
+    })
+    .then(body => {
+      console.log("Este es el body del request", body);
+      let html = body.map(todo => `<li>${todo.label}</li>`).join("");
+      html = `<ul>${html}</ul>`;
+      document.getElementById("content").innerHTML = html;
+    })
+    .catch(error => console.error("Error:", error));
+
   return (
     <>
       <div className="container">
@@ -20,15 +46,15 @@ const Home = () => {
               <input
                 type="text"
                 placeholder="Write here your new to-do"
-                onChange={(e) => setInputValue(e.target.value)}
+                onChange={e => setInputValue(e.target.value)}
                 value={inputValue}
-                onKeyUp={(e) => {
+                onKeyUp={e => {
                   if (e.key === "Enter") {
                     setTodos(todos.concat([inputValue]));
                     setInputValue("");
                   }
                 }}
-              ></input>
+              />
             </li>
 
             {todos.map((todo, index) => (
@@ -38,7 +64,7 @@ const Home = () => {
                   icon={faXmark}
                   onClick={() =>
                     setTodos(
-                      todos.filter((t, currentIndex) => index != currentIndex)
+                      todos.filter((t, currentIndex) => index !== currentIndex)
                     )
                   }
                 />

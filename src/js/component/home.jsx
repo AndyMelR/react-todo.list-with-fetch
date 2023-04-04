@@ -1,40 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
-// include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
-
 const Home = () => {
-  const [inputValue, setInputValue] = useState("");
+  //const [inputValue, setInputValue] = useState("");
   const [todos, setTodos] = useState([]);
 
-  let url = "https://assets.breatheco.de/apis/fake/todos/user/ameleror";
-
-  let options = {
-    method: "get",
-    body: JSON.stringify(todos),
-    headers: {
-      "Content-Type": "application/json"
-    }
-  };
-
-  fetch(url, options)
-    .then(respuesta => {
-      if (respuesta.status >= 200 && respuesta.status < 300) {
-        console.log("El request se hizo correctamente");
-        return respuesta.json();
-      } else {
-        console.log(`Hubo un error ${respuesta.status} en el request`);
+  useEffect(() => {
+    const fetchTodos = async () => {
+      try {
+        const url = "https://assets.breatheco.de/apis/fake/todos/user/ameleror";
+        const response = await fetch(url);
+        if (response.ok) {
+          const data = await response.json();
+          setTodos(data);
+        } else {
+          console.log(`Hubo un error ${response.status} en el request`);
+        }
+      } catch (error) {
+        console.error("Error:", error);
       }
-    })
-    .then(body => {
-      console.log("Este es el body del request", body);
-      let html = body.map(todo => `<li>${todo.label}</li>`).join("");
-      html = `<ul>${html}</ul>`;
-      document.getElementById("content").innerHTML = html;
-    })
-    .catch(error => console.error("Error:", error));
+    };
+    fetchTodos();
+  }, []);
+
+  useEffect(() => {
+    let html = todos.map((todo) => `<li>${todo.label}</li>`).join("");
+    html = `<ul>${html}</ul>`;
+  }, [todos]);
 
   return (
     <>
@@ -42,29 +35,16 @@ const Home = () => {
         <h1>todos</h1>
         <div className="container sombra" id="notebook">
           <ul>
-            <li>
-              <input
-                type="text"
-                placeholder="Write here your new to-do"
-                onChange={e => setInputValue(e.target.value)}
-                value={inputValue}
-                onKeyUp={e => {
-                  if (e.key === "Enter") {
-                    setTodos(todos.concat([inputValue]));
-                    setInputValue("");
-                  }
-                }}
-              />
-            </li>
-
             {todos.map((todo, index) => (
               <li key={index}>
-                <span>{todo}</span>
+                <span>{todo.label}</span>
                 <FontAwesomeIcon
                   icon={faXmark}
                   onClick={() =>
                     setTodos(
-                      todos.filter((t, currentIndex) => index !== currentIndex)
+                      todos.filter(
+                        (t, currentIndex) => index !== currentIndex
+                      )
                     )
                   }
                 />

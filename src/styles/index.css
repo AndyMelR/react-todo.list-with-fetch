@@ -105,3 +105,51 @@ input {
     box-shadow: 5px 5px 15px gray;
 }
 
+.edit-btn,
+.add-btn,
+.cancel-btn,
+.clear-btn {
+  background-color: pink;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 16px;
+  margin-top: 10px;
+  text-align: center;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+}
+
+.edit-btn:hover,
+.add-btn:hover,
+.cancel-btn:hover,
+.clear-btn:hover {
+  opacity: 0.8;
+}
+
+.buttons-container {
+    margin-top: 10px;
+  }
+  
+  
+.icon {
+    font-size: 20px;
+    cursor: pointer;
+}
+    
+.edit-icon {
+    margin-right: 10px;
+}
+
+.edit-btn-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  
+
+  
+
+
